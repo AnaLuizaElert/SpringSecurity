@@ -18,35 +18,38 @@ import java.util.List;
 @EnableWebSecurity
 public class Settings {
 
-    @Bean
+//    @Bean
 //    UserDetailService - é a lógica para buscar os usuários
-    public UserDetailsService userDetailsService(){
-       List<UserDetails> users = new ArrayList<>();
-       PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    public UserDetailsService userDetailsService(){
+//       List<UserDetails> users = new ArrayList<>();
+//       PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 //     User Details é uma interface que determina do tipo de usuário que o
 //     Spring security vai usar, o usuário implementa o UserDetails
-        UserDetails user1 =
+//        UserDetails user1 =
 //      É um método que vai usar o contrutor para cria um usuário
-                User.builder()
-                        .username("Aninha")
-                        .password(
-                                passwordEncoder.encode("123")
-                        )
+//                User.builder()
+//                        .username("Aninha")
+//                        .password(
+//                                passwordEncoder.encode("123")
+//                        )
 //                      Cria realmente o objeto
-                        .build();
+//                        .build();
+//
+//        UserDetails user2 =
+//                User.builder()
+//                        .username("Ana")
+//                        .password(
+//                                passwordEncoder.encode("123")
+//                        )
+//                        .build();
+//
+//        users.add(user1);
+//        users.add(user2);
+//
+//        return new InMemoryUserDetailsManager(users);
+//    }
 
-        UserDetails user2 =
-                User.builder()
-                        .username("Ana")
-                        .password(
-                                passwordEncoder.encode("123")
-                        )
-                        .build();
 
-        users.add(user1);
-        users.add(user2);
 
-        return new InMemoryUserDetailsManager(users);
-    }
 
 }
