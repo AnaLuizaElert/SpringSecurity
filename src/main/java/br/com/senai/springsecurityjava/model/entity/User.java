@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String fullname;
-    private List<GrantedAuthority> authorirties;
+    private Collection<GrantedAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
