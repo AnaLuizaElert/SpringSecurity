@@ -16,12 +16,12 @@ public class TestController {
 
     private UserRepository userRepository;
 
-    @GetMapping
+    @GetMapping("/autenticado")
     public ResponseEntity<String> get(){
         return ResponseEntity.ok("Hello World! autenticado");
     }
 
-    @GetMapping("/teste2")
+    @GetMapping("/nautenticado")
     public ResponseEntity<String> get2(){
         return ResponseEntity.ok("Hello World! não autenticado");
     }

@@ -1,0 +1,39 @@
+package br.com.senai.springsecurityjava.security.controller;
+
+import br.com.senai.springsecurityjava.security.model.Login;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+@Controller
+public class AuthenticationController {
+
+    @Autowired
+    AuthenticationManager authenticationManager;
+
+    @PostMapping("/login")
+    public void login(
+            @RequestBody Login login
+    ){
+        UsernamePasswordAuthenticationToken token =
+                new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
+//        o getPrincipal é o usuário a ser autenticado que vai criar o userDetails
+        System.out.println(token.getPrincipal());
+        Authentication authentication = authenticationManager.authenticate(token);
+        System.out.println(authentication.isAuthenticated());
+
+//        É uma forma de armazenar o usuário autenticado, ele cria o cookie JSESSIONID
+        SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
+        securityContext.setAuthentication(authentication);
+        SecurityContextHolder.setContext(securityContext);
+    }
+
+}
