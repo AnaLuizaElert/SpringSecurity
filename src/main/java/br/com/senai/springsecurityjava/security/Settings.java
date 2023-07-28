@@ -7,7 +7,9 @@ import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
@@ -33,6 +35,7 @@ public class Settings {
     private JpaService jpaService;
 
     @Autowired
+    @Bean
     public void configure(AuthenticationManagerBuilder amb) throws Exception {
 //        O NoOpPasswordEncoder nao criptografa
 //        amb.userDetailsService(jpaService).passwordEncoder(NoOpPasswordEncoder.getInstance());
@@ -49,17 +52,27 @@ public class Settings {
 //                        /teste/* -> permite a requisição para uma barra a mais
 //                        /teste/** -> permite requisição com quantidade indeterminada de barras
 //                        /teste* -> permite para qualquer método a requisição
-                        .requestMatchers(HttpMethod.GET, "/teste").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/teste/autenticado").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/user", "/user2").authenticated()
 //                        anyrequest -> qualquer requisição fora essas terá que ser autenticada (authenticated)
-                        .anyRequest().authenticated());
+                        .anyRequest().permitAll());
 
 //        httpSecurity.httpBasic((basic) -> basic.)
 //        httpSecurity.formLogin((custom) ->
 //                custom.loginPage("/login").permitAll());
-        httpSecurity.formLogin().permitAll();
-//        criar
+        httpSecurity.formLogin().loginPage("/login").permitAll();
+        httpSecurity.csrf().disable();
+
         return httpSecurity.build();
+    }
+
+//    Como na controller da autenticação precisa de um authenticationManager,
+//    aqui nós estamos criando ele
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration configuration
+    ) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
 
