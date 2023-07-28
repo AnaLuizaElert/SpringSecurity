@@ -58,6 +58,7 @@ public class Settings {
 //        httpSecurity.formLogin((custom) ->
 //                custom.loginPage("/login").permitAll());
         httpSecurity.formLogin().permitAll();
+//        criar
         return httpSecurity.build();
     }
 
