@@ -1,8 +1,7 @@
 package br.com.senai.springsecurityjava.security.service;
 
-import br.com.senai.springsecurityjava.repository.UserRepository;
+import br.com.senai.springsecurityjava.security.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,7 +15,7 @@ public class JpaService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username);
+        return userRepository.findByPerson_Email(username);
     }
 
 }

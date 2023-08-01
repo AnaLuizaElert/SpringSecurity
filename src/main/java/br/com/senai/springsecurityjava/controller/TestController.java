@@ -1,7 +1,9 @@
 package br.com.senai.springsecurityjava.controller;
 
-import br.com.senai.springsecurityjava.model.entity.User;
-import br.com.senai.springsecurityjava.repository.UserRepository;
+import br.com.senai.springsecurityjava.model.entity.Person;
+import br.com.senai.springsecurityjava.repository.PersonRepository;
+import br.com.senai.springsecurityjava.security.model.User;
+import br.com.senai.springsecurityjava.security.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,7 @@ public class TestController {
             @RequestBody User user
     ){
         BCryptPasswordEncoder bcp = new BCryptPasswordEncoder();
-        user.setPassword(bcp.encode(user.getPassword()));
+        user.getPerson().setPassword(bcp.encode(user.getPassword()));
         return ResponseEntity.ok(userRepository.save(user));
     }
 
