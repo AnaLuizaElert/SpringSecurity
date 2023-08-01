@@ -3,29 +3,16 @@ package br.com.senai.springsecurityjava.security;
 import br.com.senai.springsecurityjava.security.service.JpaService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.proxy.NoOp;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
-
-import java.security.Security;
-import java.util.ArrayList;
-import java.util.List;
 
 @Configuration
 @AllArgsConstructor
@@ -35,7 +22,6 @@ public class Settings {
     private JpaService jpaService;
 
     @Autowired
-    @Bean
     public void configure(AuthenticationManagerBuilder amb) throws Exception {
 //        O NoOpPasswordEncoder nao criptografa
 //        amb.userDetailsService(jpaService).passwordEncoder(NoOpPasswordEncoder.getInstance());
@@ -52,15 +38,15 @@ public class Settings {
 //                        /teste/* -> permite a requisição para uma barra a mais
 //                        /teste/** -> permite requisição com quantidade indeterminada de barras
 //                        /teste* -> permite para qualquer método a requisição
-                        .requestMatchers(HttpMethod.GET, "/teste/autenticado").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/user", "/user2").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/teste/nautenticado").permitAll()
+//                        .requestMatchers(HttpMethod.DELETE, "/user", "/user2").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
 //                        anyrequest -> qualquer requisição fora essas terá que ser autenticada (authenticated)
-                        .anyRequest().permitAll());
+                        .anyRequest().authenticated());
 
-//        httpSecurity.httpBasic((basic) -> basic.)
-//        httpSecurity.formLogin((custom) ->
-//                custom.loginPage("/login").permitAll());
-        httpSecurity.formLogin().loginPage("/login").permitAll();
+//      httpSecurity.httpBasic((basic) -> basic.)
+//      httpSecurity.formLogin((custom) -> custom.loginPage("/login").permitAll());
+//      httpSecurity.formLogin().loginPage("/login").permitAll();
         httpSecurity.csrf().disable();
 
         return httpSecurity.build();
