@@ -21,5 +21,4 @@ public class Person {
     private String lastname;
     /*É o username o email*/
     private String email;
-    private String password;
 }

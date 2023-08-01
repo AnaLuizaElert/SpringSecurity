@@ -28,13 +28,13 @@ public class TestController {
         return ResponseEntity.ok("Hello World! não autenticado");
     }
 
-    @PostMapping
-    public ResponseEntity<User> post(
-            @RequestBody User user
-    ){
-        BCryptPasswordEncoder bcp = new BCryptPasswordEncoder();
-        user.getPerson().setPassword(bcp.encode(user.getPassword()));
-        return ResponseEntity.ok(userRepository.save(user));
-    }
+//    @PostMapping
+//    public ResponseEntity<User> post(
+//            @RequestBody User user
+//    ){
+//        BCryptPasswordEncoder bcp = new BCryptPasswordEncoder();
+//        user.getPerson().setPassword(bcp.encode(user.getPassword()));
+//        return ResponseEntity.ok(userRepository.save(user));
+//    }
 
 }

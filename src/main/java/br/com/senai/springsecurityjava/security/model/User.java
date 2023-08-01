@@ -27,16 +27,12 @@ public class User implements UserDetails {
 
     @OneToOne(cascade = CascadeType.ALL)
     private Person person;
+    private String password;
     private Collection<GrantedAuthority> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
-
-    @Override
-    public String getPassword() {
-        return person.getPassword();
-    }
 
     @Override
     public String getUsername() {

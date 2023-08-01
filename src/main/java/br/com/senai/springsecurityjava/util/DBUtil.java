@@ -26,11 +26,11 @@ public class DBUtil {
         person.setName("Admin");
         person.setLastname("system");
         person.setEmail("admin@gmail.com");
-        person.setPassword(new BCryptPasswordEncoder().encode("admin"));
 
         User user = new User();
         user.setPerson(person);
         user.setEnabled(true);
+        user.setPassword(new BCryptPasswordEncoder().encode("admin"));
         user.setAccountNonExpired(true);
         user.setCredentialsNonExpired(true);
         user.setAccountNonLocked(true);
