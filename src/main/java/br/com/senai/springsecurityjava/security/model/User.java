@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 public class User implements UserDetails {
 
-//    Fazendo dessa maneira não há persistência de dados! Se você precisar desses dados não dá para fazer dessa maneira
+//    Fazendo sem o @Service não há persistência de dados! Se você precisar desses dados não dá para fazer dessa maneira
 //    únicos dados salvos aqui é a senha e o email.
 //    Para manter a persistência basta colocar essa entidade como entity e abrir um relacionamento com o person de @OnetoOne
 
