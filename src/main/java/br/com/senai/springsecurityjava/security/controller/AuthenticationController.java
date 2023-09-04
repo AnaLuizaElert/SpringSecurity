@@ -27,18 +27,15 @@ public class AuthenticationController {
     public ResponseEntity<?> login(
             @RequestBody Login login,
             HttpServletRequest request,
-            HttpServletResponse response
-    ){
+            HttpServletResponse response){
+
         SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
-//        System.out.print("login");
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
 //        o getPrincipal é o usuário a ser autenticado que vai criar o userDetails
-//        System.out.println(token.getPrincipal());
         Authentication authentication = authenticationManager.authenticate(token);
 
         if(authentication.isAuthenticated()){
-//            System.out.println(authentication.isAuthenticated());
             User user = (User) authentication.getPrincipal();
             Cookie cookie = CookieUtil.generateCookie(user);
             response.addCookie(cookie);
@@ -50,8 +47,6 @@ public class AuthenticationController {
 //         SecurityContextHolder.getContext().setAuthentication(token);
             return ResponseEntity.ok(authentication.getPrincipal());
         }
-
         return ResponseEntity.status(401).build();
     }
-
 }

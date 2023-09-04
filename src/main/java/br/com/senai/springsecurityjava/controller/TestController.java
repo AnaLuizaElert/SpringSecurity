@@ -27,12 +27,9 @@ public class TestController {
     }
 
     @PostMapping
-    public ResponseEntity<User> post(
-            @RequestBody User user
-    ){
+    public ResponseEntity<User> post(@RequestBody User user){
         BCryptPasswordEncoder bcp = new BCryptPasswordEncoder();
         user.setPassword(bcp.encode(user.getPassword()));
         return ResponseEntity.ok(userRepository.save(user));
     }
-
 }
