@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/teste")
+@RequestMapping("/test")
 public class TestController {
 
     private UserRepository userRepository;
@@ -24,6 +24,20 @@ public class TestController {
     @GetMapping("/nautenticado")
     public ResponseEntity<String> get2(){
         return ResponseEntity.ok("Hello World! não autenticado");
+    }
+    @GetMapping("/admin")
+    public ResponseEntity<String> get3(){
+        return ResponseEntity.ok("Hello World! admin");
+    }
+
+    @GetMapping("/seller")
+    public ResponseEntity<String> get4(){
+        return ResponseEntity.ok("Hello World! seller");
+    }
+
+    @GetMapping("/client")
+    public ResponseEntity<String> get5(){
+        return ResponseEntity.ok("Hello World! client");
     }
 
     @PostMapping

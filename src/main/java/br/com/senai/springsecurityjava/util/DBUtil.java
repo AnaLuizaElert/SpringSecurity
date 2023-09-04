@@ -1,6 +1,7 @@
 package br.com.senai.springsecurityjava.util;
 
 import br.com.senai.springsecurityjava.model.entity.User;
+import br.com.senai.springsecurityjava.model.enums.Perfil;
 import br.com.senai.springsecurityjava.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -26,8 +28,7 @@ public class DBUtil {
         user.setAccountNonExpired(true);
         user.setCredentialsNonExpired(true);
         user.setAccountNonLocked(true);
-        user.setAuthorities(new ArrayList<>());
+        user.setAuthorities(List.of(Perfil.ADMIN));
         userRepository.save(user);
     }
-
 }

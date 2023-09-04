@@ -1,22 +1,19 @@
 package br.com.senai.springsecurityjava.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.senai.springsecurityjava.model.enums.Perfil;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
-@Entity
 @Data
-@AllArgsConstructor
+@Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -26,7 +23,9 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String fullname;
-    private Collection<GrantedAuthority> authorities;
+
+    @Enumerated(EnumType.STRING)
+    private List<Perfil> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;

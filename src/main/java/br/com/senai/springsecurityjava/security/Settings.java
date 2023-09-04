@@ -36,11 +36,11 @@ public class Settings {
 //                        /teste/* -> permite a requisição para uma barra a mais
 //                        /teste/** -> permite requisição com quantidade indeterminada de barras
 //                        /teste* -> permite para qualquer método a requisição
-                        .requestMatchers(HttpMethod.GET, "/teste/nautenticado").permitAll()
-//                        .requestMatchers(HttpMethod.DELETE, "/user", "/user2").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
-//                        anyrequest -> qualquer requisição fora essas terá que ser autenticada (authenticated)
-                        .anyRequest().authenticated());
+                        .requestMatchers(HttpMethod.GET, "/test/autenticado").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/test/admin").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/test/seller").hasRole("SELLER")
+                        .requestMatchers(HttpMethod.GET, "/test/client").hasRole("CLIENT")
+                        .anyRequest().permitAll());
 
 //      httpSecurity.httpBasic((basic) -> basic.)
 //      httpSecurity.formLogin((custom) -> custom.loginPage("/login").permitAll());
@@ -57,9 +57,7 @@ public class Settings {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration configuration
-    ) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
         return configuration.getAuthenticationManager();
     }
 }
