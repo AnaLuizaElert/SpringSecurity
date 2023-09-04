@@ -1,16 +1,12 @@
 package br.com.senai.springsecurityjava.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -26,7 +22,10 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String fullname;
-    private Collection<GrantedAuthority> authorities;
+    /*Se for organizar os usuários da forma em que há duas classes de usuário e só uma é entity,
+    deve ser colocado authorities aqui também*/
+    @Enumerated(EnumType.STRING)
+    private List<Profile> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;

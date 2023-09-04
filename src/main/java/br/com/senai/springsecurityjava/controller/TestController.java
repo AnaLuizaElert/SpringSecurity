@@ -26,6 +26,26 @@ public class TestController {
         return ResponseEntity.ok("Hello World! não autenticado");
     }
 
+    @GetMapping("/autenticado/admin")
+    public ResponseEntity<String> get3(){
+        return ResponseEntity.ok("Hello World! admin");
+    }
+
+    @GetMapping("/autenticado/seller")
+    public ResponseEntity<String> get4(){
+        return ResponseEntity.ok("Hello World! seller");
+    }
+
+    @GetMapping("/autenticado/client")
+    public ResponseEntity<String> get5(){
+        return ResponseEntity.ok("Hello World! client");
+    }
+
+    @GetMapping("/autenticado/admin&seller")
+    public ResponseEntity<String> get6(){
+        return ResponseEntity.ok("Hello World! admin and seller");
+    }
+
     @PostMapping
     public ResponseEntity<User> post(
             @RequestBody User user

@@ -44,6 +44,10 @@ public class Settings {
 //                        .requestMatchers(HttpMethod.DELETE, "/user", "/user2").authenticated()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
 //                        anyrequest -> qualquer requisição fora essas terá que ser autenticada (authenticated)
+                        .requestMatchers(HttpMethod.GET, "/teste/autenticado/admin").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/teste/autenticado/seller").hasAuthority("SELLER")
+                        .requestMatchers(HttpMethod.GET, "/teste/autenticado/client").hasAuthority("CLIENT")
+                        .requestMatchers(HttpMethod.GET, "/teste/autenticado/admin&seller").hasAnyAuthority("ADMIN", "SELLER")
                         .anyRequest().authenticated());
 
 //      httpSecurity.httpBasic((basic) -> basic.)
