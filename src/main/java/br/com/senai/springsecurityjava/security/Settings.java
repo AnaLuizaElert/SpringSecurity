@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,8 +19,9 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@AllArgsConstructor
 @EnableWebSecurity
+@AllArgsConstructor
+@EnableMethodSecurity
 public class Settings {
 
     private JpaService jpaService;
@@ -32,20 +35,8 @@ public class Settings {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests((authorization) ->
                 authorization
-//                        /teste -> limita a requisição para apenas o que tiver o get vazio
-//                        /teste/* -> permite a requisição para uma barra a mais
-//                        /teste/** -> permite requisição com quantidade indeterminada de barras
-//                        /teste* -> permite para qualquer método a requisição
                         .requestMatchers(HttpMethod.GET, "/test/auth").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/test/auth/adminSeller").hasAnyAuthority("ADMIN", "SELLER")
-                        .requestMatchers(HttpMethod.GET, "/test/auth/admin").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/test/auth/seller").hasAuthority("SELLER")
-                        .requestMatchers(HttpMethod.GET, "/test/auth/client").hasAuthority("CLIENT")
                         .anyRequest().permitAll());
-
-//      httpSecurity.httpBasic((basic) -> basic.)
-//      httpSecurity.formLogin((custom) -> custom.loginPage("/login").permitAll());
-//      httpSecurity.formLogin().loginPage("/login").permitAll();
 
         /*Faz com que não seja mantida uma sessão ativa, quem fará isso é o filter*/
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
