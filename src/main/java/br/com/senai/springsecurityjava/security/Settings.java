@@ -33,11 +33,6 @@ public class Settings {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests((authorization) ->
-                authorization
-                        .requestMatchers(HttpMethod.GET, "/test/auth").authenticated()
-                        .anyRequest().permitAll());
-
         /*Faz com que não seja mantida uma sessão ativa, quem fará isso é o filter*/
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         /*É uma classe onde qualquer requisição vai passar pela classe que colocamos dentro dela*/

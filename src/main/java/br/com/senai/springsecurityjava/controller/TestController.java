@@ -18,35 +18,37 @@ public class TestController {
     private UserRepository userRepository;
 
     @GetMapping
+    @PreAuthorize("permitAll()")
     public ResponseEntity<String> get(){
         return ResponseEntity.ok("Hello World! não autenticado");
     }
 
     @GetMapping("/auth")
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<String> get2(){
         return ResponseEntity.ok("Hello World! autenticado");
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/auth/admin")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> get3(){
         return ResponseEntity.ok("Hello World! admin");
     }
 
-    @PreAuthorize("hasAuthority('SELLER')")
     @GetMapping("/auth/seller")
+    @PreAuthorize("hasAuthority('SELLER')")
     public ResponseEntity<String> get4(){
         return ResponseEntity.ok("Hello World! seller");
     }
 
-    @PreAuthorize("hasAuthority('CLIENT')")
     @GetMapping("/auth/client")
+    @PreAuthorize("hasAuthority('CLIENT')")
     public ResponseEntity<String> get5(){
         return ResponseEntity.ok("Hello World! client");
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN', 'SELLER')")
     @GetMapping("/auth/adminSeller")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'SELLER')")
     public ResponseEntity<String> get6(){
         return ResponseEntity.ok("Hello World! admin-seller");
     }
