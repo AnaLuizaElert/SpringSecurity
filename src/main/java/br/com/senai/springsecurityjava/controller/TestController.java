@@ -16,28 +16,33 @@ public class TestController {
 
     private UserRepository userRepository;
 
-    @GetMapping("/autenticado")
+    @GetMapping
     public ResponseEntity<String> get(){
-        return ResponseEntity.ok("Hello World! autenticado");
-    }
-
-    @GetMapping("/nautenticado")
-    public ResponseEntity<String> get2(){
         return ResponseEntity.ok("Hello World! não autenticado");
     }
-    @GetMapping("/admin")
+
+    @GetMapping("/auth")
+    public ResponseEntity<String> get2(){
+        return ResponseEntity.ok("Hello World! autenticado");
+    }
+    @GetMapping("/auth/admin")
     public ResponseEntity<String> get3(){
         return ResponseEntity.ok("Hello World! admin");
     }
 
-    @GetMapping("/seller")
+    @GetMapping("/auth/seller")
     public ResponseEntity<String> get4(){
         return ResponseEntity.ok("Hello World! seller");
     }
 
-    @GetMapping("/client")
+    @GetMapping("/auth/client")
     public ResponseEntity<String> get5(){
         return ResponseEntity.ok("Hello World! client");
+    }
+
+    @GetMapping("/auth/adminSeller")
+    public ResponseEntity<String> get6(){
+        return ResponseEntity.ok("Hello World! admin-seller");
     }
 
     @PostMapping

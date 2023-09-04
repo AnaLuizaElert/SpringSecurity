@@ -36,10 +36,11 @@ public class Settings {
 //                        /teste/* -> permite a requisição para uma barra a mais
 //                        /teste/** -> permite requisição com quantidade indeterminada de barras
 //                        /teste* -> permite para qualquer método a requisição
-                        .requestMatchers(HttpMethod.GET, "/test/autenticado").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/test/admin").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/test/seller").hasRole("SELLER")
-                        .requestMatchers(HttpMethod.GET, "/test/client").hasRole("CLIENT")
+                        .requestMatchers(HttpMethod.GET, "/test/auth").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/test/auth/adminSeller").hasAnyAuthority("ADMIN", "SELLER")
+                        .requestMatchers(HttpMethod.GET, "/test/auth/admin").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/test/auth/seller").hasAuthority("SELLER")
+                        .requestMatchers(HttpMethod.GET, "/test/auth/client").hasAuthority("CLIENT")
                         .anyRequest().permitAll());
 
 //      httpSecurity.httpBasic((basic) -> basic.)

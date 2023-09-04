@@ -51,6 +51,6 @@ public class Filter extends OncePerRequestFilter {
     }
 
     private boolean privateRoute(String url) {
-        return url.startsWith("/teste/autenticado");
+        return url.startsWith("/test/auth");
     }
 }
