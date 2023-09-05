@@ -1,7 +1,7 @@
 package br.com.senai.springsecurityjava.security.util;
 
-import br.com.senai.springsecurityjava.model.entity.User;
-import br.com.senai.springsecurityjava.repository.UserRepository;
+import br.com.senai.springsecurityjava.model.entity.Person;
+import br.com.senai.springsecurityjava.repository.PersonRepository;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,34 +13,27 @@ import java.util.Date;
 public class JWTUtil {
 
     private static final String STRONGPASSWORD = "c127a7b6adb013a5ff879ae71afa62afa4b4ceb72afaa54711dbcde67b6dc325";
-    private static UserRepository userRepository;
+    private static PersonRepository personRepository;
 
     @Autowired
-    JWTUtil(UserRepository userRepository){
-        JWTUtil.userRepository = userRepository;
+    JWTUtil(PersonRepository personRepository){
+        JWTUtil.personRepository = personRepository;
     }
 
-    public static String generateToken(User user) {
+    public static String generateToken(Person person) {
         Algorithm algorithm = Algorithm.HMAC256(STRONGPASSWORD);
 
-
-        /*vai ser gerado uma string*/
         return JWT.create()
-                /*Emissor/empresa*/
                 .withIssuer("WEG")
-                /*Usual: colocar o identificador único do usuário. Mas pode ser colocado qualquer outro atributo*/
-                .withSubject(user.getId().toString())
-                /*Data da criação*/
+                .withSubject(person.getId().toString())
                 .withIssuedAt(new Date())
-                /*Data que expira o token. 1800000 é o equivalente a 30 minutos em milisegundos*/
                 .withExpiresAt(new Date(new Date().getTime() + 1800000))
-                /*Pode ser colocado no application properties para não mostrar no código*/
                 .sign(algorithm);
     }
 
-    public static User getUsuario(String token) {
+    public static Person getUsuario(String token) {
          String id = JWT.decode(token).getSubject();
-         return userRepository.findById(Long.parseLong(id)).orElseThrow();
+         return personRepository.findById(Long.parseLong(id)).orElseThrow();
     }
 
 }

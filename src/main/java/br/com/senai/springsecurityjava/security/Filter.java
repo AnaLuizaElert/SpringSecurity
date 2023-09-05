@@ -1,6 +1,6 @@
 package br.com.senai.springsecurityjava.security;
 
-import br.com.senai.springsecurityjava.model.entity.User;
+import br.com.senai.springsecurityjava.security.model.User;
 import br.com.senai.springsecurityjava.security.util.CookieUtil;
 import br.com.senai.springsecurityjava.security.util.JWTUtil;
 import com.auth0.jwt.exceptions.JWTDecodeException;
@@ -23,11 +23,9 @@ public class Filter extends OncePerRequestFilter {
             FilterChain filterChain)
             throws ServletException, IOException {
         if(privatePath(request.getRequestURI())){
-            try{
+            try {
                 String token = CookieUtil.getToken(request);
                 User user = JWTUtil.getUsuario(token);
-//            Faz com que o usuário não precise logar no sistema a cada 30 minutos,
-//            caso ele estiver ativo
                 response.addCookie(CookieUtil.generateCookie(user));
 
                 Authentication authentication =
@@ -37,7 +35,7 @@ public class Filter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            }catch (JWTDecodeException e){
+            } catch (JWTDecodeException e){
                 System.out.println("O token não foi encontrado!");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 return;

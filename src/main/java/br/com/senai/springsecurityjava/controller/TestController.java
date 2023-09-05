@@ -1,7 +1,7 @@
 package br.com.senai.springsecurityjava.controller;
 
-import br.com.senai.springsecurityjava.model.entity.User;
-import br.com.senai.springsecurityjava.repository.UserRepository;
+import br.com.senai.springsecurityjava.model.entity.Person;
+import br.com.senai.springsecurityjava.repository.PersonRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/teste")
 public class TestController {
 
-    private UserRepository userRepository;
+    private PersonRepository personRepository;
 
     @GetMapping("/autenticado")
     public ResponseEntity<String> get(){
@@ -47,12 +47,12 @@ public class TestController {
     }
 
     @PostMapping
-    public ResponseEntity<User> post(
-            @RequestBody User user
+    public ResponseEntity<Person> post(
+            @RequestBody Person person
     ){
         BCryptPasswordEncoder bcp = new BCryptPasswordEncoder();
-        user.setPassword(bcp.encode(user.getPassword()));
-        return ResponseEntity.ok(userRepository.save(user));
+        person.setPassword(bcp.encode(person.getPassword()));
+        return ResponseEntity.ok(personRepository.save(person));
     }
 
 }

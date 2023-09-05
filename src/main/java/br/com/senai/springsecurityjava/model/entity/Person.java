@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;
 
@@ -13,7 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements UserDetails {
+public class Person{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,14 +20,9 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String fullname;
-    /*Se for organizar os usuários da forma em que há duas classes de usuário e só uma é entity,
-    deve ser colocado authorities aqui também*/
     @Enumerated(EnumType.STRING)
     private List<Profile> authorities;
-    private boolean accountNonExpired;
-    private boolean accountNonLocked;
-    private boolean credentialsNonExpired;
-    private boolean enabled;
+
 
 
 }

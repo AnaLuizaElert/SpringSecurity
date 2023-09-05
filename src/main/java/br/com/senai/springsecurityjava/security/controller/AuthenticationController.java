@@ -1,6 +1,6 @@
 package br.com.senai.springsecurityjava.security.controller;
 
-import br.com.senai.springsecurityjava.model.entity.User;
+import br.com.senai.springsecurityjava.model.entity.Person;
 import br.com.senai.springsecurityjava.security.model.Login;
 import br.com.senai.springsecurityjava.security.util.CookieUtil;
 import jakarta.servlet.http.Cookie;
@@ -30,24 +30,14 @@ public class AuthenticationController {
             HttpServletResponse response
     ){
         SecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
-//        System.out.print("login");
         UsernamePasswordAuthenticationToken token =
                 new UsernamePasswordAuthenticationToken(login.getUsername(), login.getPassword());
-//        o getPrincipal é o usuário a ser autenticado que vai criar o userDetails
-//        System.out.println(token.getPrincipal());
         Authentication authentication = authenticationManager.authenticate(token);
 
         if(authentication.isAuthenticated()){
-//            System.out.println(authentication.isAuthenticated());
-            User user = (User) authentication.getPrincipal();
-            Cookie cookie = CookieUtil.generateCookie(user);
+            Person person = (Person) authentication.getPrincipal();
+            Cookie cookie = CookieUtil.generateCookie(person);
             response.addCookie(cookie);
-//        É uma forma de armazenar o usuário autenticado, ele cria o cookie JSESSIONID
-//            SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-//            securityContext.setAuthentication(authentication);
-//            SecurityContextHolder.setContext(securityContext);
-//            securityContextRepository.saveContext(securityContext, request, response);
-//         SecurityContextHolder.getContext().setAuthentication(token);
             return ResponseEntity.ok(authentication.getPrincipal());
         }
 

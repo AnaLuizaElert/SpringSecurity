@@ -1,8 +1,8 @@
 package br.com.senai.springsecurityjava.util;
 
+import br.com.senai.springsecurityjava.model.entity.Person;
 import br.com.senai.springsecurityjava.model.entity.Profile;
-import br.com.senai.springsecurityjava.model.entity.User;
-import br.com.senai.springsecurityjava.repository.UserRepository;
+import br.com.senai.springsecurityjava.repository.PersonRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -14,47 +14,47 @@ import java.util.List;
 @AllArgsConstructor
 public class DBUtil {
 
-    private UserRepository userRepository;
+    private PersonRepository personRepository;
 
     @PostConstruct
     public void fillDb(){
-        userRepository.deleteAll();
+        personRepository.deleteAll();
 
         /*ADMIN*/
-        User userAdmin = new User();
-        userAdmin.setUsername("admin");
-        userAdmin.setFullname("admin");
-        userAdmin.setPassword(new BCryptPasswordEncoder().encode("admin"));
-        userAdmin.setEnabled(true);
-        userAdmin.setAccountNonExpired(true);
-        userAdmin.setCredentialsNonExpired(true);
-        userAdmin.setAccountNonLocked(true);
-        userAdmin.setAuthorities(List.of(Profile.ADMIN));
-        userRepository.save(userAdmin);
+        Person personAdmin = new Person();
+        personAdmin.setUsername("admin");
+        personAdmin.setFullname("admin");
+        personAdmin.setPassword(new BCryptPasswordEncoder().encode("admin"));
+        personAdmin.setEnabled(true);
+        personAdmin.setAccountNonExpired(true);
+        personAdmin.setCredentialsNonExpired(true);
+        personAdmin.setAccountNonLocked(true);
+        personAdmin.setAuthorities(List.of(Profile.ADMIN));
+        personRepository.save(personAdmin);
 
         /*SELLER*/
-        User userSeller = new User();
-        userSeller.setUsername("seller");
-        userSeller.setFullname("seller");
-        userSeller.setPassword(new BCryptPasswordEncoder().encode("seller"));
-        userSeller.setEnabled(true);
-        userSeller.setAccountNonExpired(true);
-        userSeller.setCredentialsNonExpired(true);
-        userSeller.setAccountNonLocked(true);
-        userSeller.setAuthorities(List.of(Profile.SELLER));
-        userRepository.save(userSeller);
+        Person personSeller = new Person();
+        personSeller.setUsername("seller");
+        personSeller.setFullname("seller");
+        personSeller.setPassword(new BCryptPasswordEncoder().encode("seller"));
+        personSeller.setEnabled(true);
+        personSeller.setAccountNonExpired(true);
+        personSeller.setCredentialsNonExpired(true);
+        personSeller.setAccountNonLocked(true);
+        personSeller.setAuthorities(List.of(Profile.SELLER));
+        personRepository.save(personSeller);
 
         /*CLIENT*/
-        User userClient = new User();
-        userClient.setUsername("client");
-        userClient.setFullname("client");
-        userClient.setPassword(new BCryptPasswordEncoder().encode("client"));
-        userClient.setEnabled(true);
-        userClient.setAccountNonExpired(true);
-        userClient.setCredentialsNonExpired(true);
-        userClient.setAccountNonLocked(true);
-        userClient.setAuthorities(List.of(Profile.CLIENT));
-        userRepository.save(userClient);
+        Person personClient = new Person();
+        personClient.setUsername("client");
+        personClient.setFullname("client");
+        personClient.setPassword(new BCryptPasswordEncoder().encode("client"));
+        personClient.setEnabled(true);
+        personClient.setAccountNonExpired(true);
+        personClient.setCredentialsNonExpired(true);
+        personClient.setAccountNonLocked(true);
+        personClient.setAuthorities(List.of(Profile.CLIENT));
+        personRepository.save(personClient);
     }
 
 }
