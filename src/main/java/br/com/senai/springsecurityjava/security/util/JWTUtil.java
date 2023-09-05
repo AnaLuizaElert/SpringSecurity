@@ -28,7 +28,6 @@ public class JWTUtil {
                 .withSubject(user.getId().toString())
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(new Date().getTime() + 1800000))
-                /*TODO: Pode ser colocado no application properties para não mostrar no código*/
                 .sign(algorithm);
     }
 

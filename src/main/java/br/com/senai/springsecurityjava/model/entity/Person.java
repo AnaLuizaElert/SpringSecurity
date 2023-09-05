@@ -16,5 +16,4 @@ public class Person {
     private Long id;
 
     private String fullname;
-
 }

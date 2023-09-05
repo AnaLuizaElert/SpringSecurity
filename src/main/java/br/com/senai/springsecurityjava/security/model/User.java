@@ -22,7 +22,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     private Person person;
 
     @Enumerated(EnumType.STRING)

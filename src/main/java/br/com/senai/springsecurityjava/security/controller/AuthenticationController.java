@@ -1,6 +1,5 @@
 package br.com.senai.springsecurityjava.security.controller;
 
-import br.com.senai.springsecurityjava.model.entity.Person;
 import br.com.senai.springsecurityjava.security.model.Login;
 import br.com.senai.springsecurityjava.security.model.User;
 import br.com.senai.springsecurityjava.security.util.CookieUtil;
@@ -39,12 +38,6 @@ public class AuthenticationController {
             User user = (User) authentication.getPrincipal();
             Cookie cookie = CookieUtil.generateCookie(user);
             response.addCookie(cookie);
-//       TODO: É uma forma de armazenar o usuário autenticado, ele cria o cookie JSESSIONID
-//            SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-//            securityContext.setAuthentication(authentication);
-//            SecurityContextHolder.setContext(securityContext);
-//            securityContextRepository.saveContext(securityContext, request, response);
-//         SecurityContextHolder.getContext().setAuthentication(token);
             return ResponseEntity.ok(authentication.getPrincipal());
         }
 

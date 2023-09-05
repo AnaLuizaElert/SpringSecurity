@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @AllArgsConstructor
 @EnableWebSecurity
+@EnableMethodSecurity
 public class Settings {
 
     private JpaService jpaService;
@@ -29,10 +31,12 @@ public class Settings {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-
-        httpSecurity.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        /*Faz com que não seja mantida uma sessão ativa, quem fará isso é o filter*/
+        httpSecurity.sessionManagement(
+                session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.addFilterBefore(new Filter(), UsernamePasswordAuthenticationFilter.class);
-        httpSecurity.headers(headers -> headers.disable());
+        httpSecurity.headers(header -> header.disable());
         httpSecurity.csrf(csrf -> csrf.disable());
 
         return httpSecurity.build();
