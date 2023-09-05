@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,15 +33,16 @@ public class Settings {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         /*Faz com que não seja mantida uma sessão ativa, quem fará isso é o filter*/
-        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         /*É uma classe onde qualquer requisição vai passar pela classe que colocamos dentro dela*/
-        httpSecurity.addFilterBefore(new Filter(), UsernamePasswordAuthenticationFilter.class);
-        httpSecurity.headers().disable();
-        httpSecurity.csrf().disable();
+        http.addFilterBefore(new Filter(), UsernamePasswordAuthenticationFilter.class);
+        http.headers(httpSecurityHeadersConfigurer ->
+                httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
+        http.csrf().disable();
 
-        return httpSecurity.build();
+        return http.build();
     }
 
     @Bean
