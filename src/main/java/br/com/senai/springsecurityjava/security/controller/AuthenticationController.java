@@ -1,7 +1,7 @@
 package br.com.senai.springsecurityjava.security.controller;
 
-import br.com.senai.springsecurityjava.model.entity.Person;
 import br.com.senai.springsecurityjava.security.model.Login;
+import br.com.senai.springsecurityjava.security.model.User;
 import br.com.senai.springsecurityjava.security.util.CookieUtil;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,8 +35,8 @@ public class AuthenticationController {
         Authentication authentication = authenticationManager.authenticate(token);
 
         if(authentication.isAuthenticated()){
-            Person person = (Person) authentication.getPrincipal();
-            Cookie cookie = CookieUtil.generateCookie(person);
+            User user = (User) authentication.getPrincipal();
+            Cookie cookie = CookieUtil.generateCookie(user);
             response.addCookie(cookie);
             return ResponseEntity.ok(authentication.getPrincipal());
         }

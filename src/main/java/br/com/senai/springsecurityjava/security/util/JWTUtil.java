@@ -2,6 +2,7 @@ package br.com.senai.springsecurityjava.security.util;
 
 import br.com.senai.springsecurityjava.model.entity.Person;
 import br.com.senai.springsecurityjava.repository.PersonRepository;
+import br.com.senai.springsecurityjava.security.model.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +17,26 @@ public class JWTUtil {
     private static PersonRepository personRepository;
 
     @Autowired
-    JWTUtil(PersonRepository personRepository){
-        JWTUtil.personRepository = personRepository;
+    JWTUtil(PersonRepository userRepository){
+        JWTUtil.personRepository = userRepository;
     }
 
-    public static String generateToken(Person person) {
+    public static String generateToken(User user) {
         Algorithm algorithm = Algorithm.HMAC256(STRONGPASSWORD);
 
         return JWT.create()
                 .withIssuer("WEG")
-                .withSubject(person.getId().toString())
+                .withSubject(user.getPerson().getId().toString())
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(new Date().getTime() + 1800000))
                 .sign(algorithm);
     }
 
-    public static Person getUsuario(String token) {
+    public static User getUsuario(String token) {
          String id = JWT.decode(token).getSubject();
-         return personRepository.findById(Long.parseLong(id)).orElseThrow();
+         Long idLong = Long.parseLong(id);
+         Person person = personRepository.findById(idLong).orElseThrow();
+         return new User(person);
     }
 
 }

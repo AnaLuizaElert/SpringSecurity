@@ -11,26 +11,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class User implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String username;
-    private String password;
-
-    @OneToOne
     private Person person;
-
-    @Enumerated(EnumType.STRING)
-    private List<Profile> authorities;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+
+    public User(Person person) {
+        this.person = person;
+        this.accountNonExpired = true;
+        this.accountNonLocked = true;
+        this.credentialsNonExpired = true;
+        this.enabled = true;
+    }
 
     public String getUsername() {
         return person.getUsername();
