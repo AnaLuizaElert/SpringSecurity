@@ -17,8 +17,8 @@ public class JWTUtil {
     private static PersonRepository personRepository;
 
     @Autowired
-    JWTUtil(PersonRepository userRepository){
-        JWTUtil.personRepository = userRepository;
+    JWTUtil(PersonRepository personRepository){
+        JWTUtil.personRepository = personRepository;
     }
 
     public static String generateToken(User user) {
