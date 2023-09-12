@@ -1,6 +1,5 @@
 package br.com.senai.springsecurityjava.security;
 
-import br.com.senai.springsecurityjava.model.entity.Person;
 import br.com.senai.springsecurityjava.security.model.User;
 import br.com.senai.springsecurityjava.security.util.CookieUtil;
 import br.com.senai.springsecurityjava.security.util.JWTUtil;
